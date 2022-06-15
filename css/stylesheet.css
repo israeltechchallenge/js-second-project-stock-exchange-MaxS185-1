@@ -25,6 +25,60 @@ body {
     padding-right: 5px;
 }
 
+#bar-stocks-bg {
+    background: linear-gradient(90deg, #9b1c2c 20%, #041e42 100%);
+    color: #fff;
+    padding: 5px;
+    height: auto;
+    font-size: 13pt;
+    width: auto;
+}
+
+#bar-stocks-list2 {
+    white-space: nowrap;
+    -moz-animation: marquee 20s linear infinite;
+    -webkit-animation: marquee 20s linear infinite;
+    animation: marquee 20s linear infinite;
+}
+
+@-moz-keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@-webkit-keyframes marquee {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes marquee {
+    0% {
+        -moz-transform: translateX(100%);
+        -webkit-transform: translateX(100%);
+        transform: translateX(100%)
+    }
+
+    100% {
+        -moz-transform: translateX(-100%);
+        -webkit-transform: translateX(-100%);
+        transform: translateX(-100%);
+    }
+}
+
+.color-price-bar {
+    color: rgb(39, 189, 39);
+}
+
 .title {
     font-size: 50pt;
     font-family: sans-serif;
@@ -103,4 +157,30 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.index-container {
+    width: 200px;
+    justify-content: space-between;
+
+}
+
+.industry {
+    width: 300px;
+}
+
+.margin-20 {
+    margin: 20px;
+}
+
+.blue-color {
+    color: #345bdb;
+}
+
+.green-color {
+    color: rgb(144, 223, 16)
+}
+
+.red-color {
+    color: rgb(223, 16, 16)
 }
