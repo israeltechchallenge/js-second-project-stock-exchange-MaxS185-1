@@ -1,3 +1,4 @@
+//loader functions
 function loaderDisplay() {
     let loader = document.getElementById('loader');
     loader.classList.remove('display-none')
@@ -10,11 +11,15 @@ function loaderRemove() {
 
 let searchingBoxValue = document.querySelector('#box-digit');
 
-const url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=AA&limit=10&exchange=NASDAQ`;
+// const url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=AA&limit=10&exchange=NASDAQ`;
+
 const container = document.createElement('div');
 const searchClickBtn = document.querySelector('#search-button');
 let stockCompanyData = [];
-function stocksList() {
+
+
+//companies data fetching and rendering
+async function stocksList() {
     console.log(searchingBoxValue.value);
     const url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${searchingBoxValue.value}&limit=10&exchange=NASDAQ`;
     console.log(url);
@@ -24,27 +29,50 @@ function stocksList() {
     fetch(url)
         .then(resp => {
             loaderDisplay();
-            console.log(resp);
+            // console.log(resp);
             return resp.json();
         })
         .then(
-            stocks => {
+
+            async (stocks) => {
                 for (const stock of stocks) {
                     // stockCompanyData = (`${stock.name} (${stock.symbol})`);
+                    console.log(stock);
                     let stockCompanyName = (`${stock.name}`)
                     let stockCompanySymbol = (`${stock.symbol}`);
 
-                    let symbolLink = dataOfStocks(stock.symbol);
-                    console.log(symbolLink);
-                    let stockHistory = historyOfStock(stock.symbol);
+                    let symbolLink = await dataOfStocks(stock.symbol);
+                    console.log(symbolLink.profile);
+                    let stockCompanyImgLink = symbolLink.profile.image;
+                    let stockCompanyImg = new Image();
+                    stockCompanyImg.src = stockCompanyImgLink;
+                    let stockCompanyPercChanges = symbolLink.profile.changesPercentage;
+
+
+                    let stockHistory = await historyOfStock(stock.symbol);
                     console.log(stockHistory);
 
-                    let stockCompanyData = (stockCompanyName + ' ' + '(' + stockCompanySymbol + ')')
+                    let stockCompanyData = (stockCompanyImg + stockCompanyName + ' ' + '(' + stockCompanySymbol + ')' + '(' + stockCompanyPercChanges + '%)')
                     console.log(stockCompanyData);
                     let listOfStocks = document.querySelector("#list-of-stocks");
+
+                    // let div = document.createElement('div');
+                    // div.classList.add("flex-row")
+                    // let stockLinesResultsImg = document.createElement('p');
+                    // stockLinesResultsImg.classList.add("img")
+                    // let stockLinesResultsName = document.createElement('p');
+                    // stockLinesResultsName.classList.add("blue-color")
+                    // let stockLinesResultsSymbol = document.createElement('p');
+                    // stockLinesResultsSymbol.classList.add("gray-color")
+                    // let stockLinesResultsChangePer = document.createElement('p');
+                    // stockLinesResultsChangePer.classList.add("green-color")
+
                     let stockLinesResults = document.createElement('p');
-                    stockLinesResults.textContent = stockCompanyData;
+                    stockLinesResults.innerHTML = stockCompanyData;
                     listOfStocks.appendChild(stockLinesResults);
+
+                    //highlight searching value
+                    highlightBackground(searchingBoxValue.value);
                     loaderRemove();
 
                 }
@@ -53,10 +81,33 @@ function stocksList() {
 }
 
 
+function highlightBackground(searched) {
+    // searched.toLowerCase();
+    let text = document.querySelector('.result-stock').innerHTML;
+    let re = new RegExp(searched, "g");
+    let newText = text.replace(re, `<mark>${searched}</mark>`);
+    document.getElementById("list-of-stocks").innerHTML = newText;
+}
+
+// function highlightBackground2(textToHighlight) {
+//     let textToSearch = textToHighlight;
+//     let line = document.querySelector('.result-stock');
+//     textToSearch = textToSearch.replace((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W));
+//     let pattern = new RegExp (`${textToHighlight}`, "gi");
+//     line.innerHTML = line.textContent.replace(pattern, match => `<mark>${match}</mark`)
+// }
+
+function highlightBackground3(textToHighlight) {
+    const textToSearch = textToHighlight;
+    let line = document.querySelector('.result-stock');
+    line.replace(new RegExp(textToSearch, "gi"), (match) => `<mark>${match}</mark>`)
+}
+
 const dataOfStocks = async (symbol) => {
     let url = 'https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/' + symbol;
     let response = await fetch(url);
     let stocks = await response.json();
+    return stocks;
     // console.log(stocks.profile.image);
     // return stocks.profile.image;
 }
@@ -80,6 +131,7 @@ const historyOfStock = async (symbol) => {
     let url = 'https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/' + symbol + '?serietype=line';
     let response = await fetch(url);
     let stocks = await response.json();
+    return stocks;
     // console.log(stocks.historical);
 }
 

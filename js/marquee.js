@@ -32,6 +32,56 @@ function barData() {
 
 barData();
 
+// class StockBarData {
+//     constructor(symbol, price) {
+//         this.symbol = symbol;
+//         this.price = price;
+//     }
+
+// };
+
+
+// function barData() {
+//     let url = 'https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/quotes/nyse/';
+//     fetch(url)
+//         .then(resp => {
+//             return resp.json();
+//         })
+//         .then(stockBarData => {
+//             console.log(stockBarData);
+//             stockBarData.forEach(stockBarDataAll => {
+//                 const stockInfoPrice = new StockBarData(stockBarDataAll.symbol, stockBarDataAll.price);
+//                 let stockSymbol = stockInfoPrice.symbol;
+//                 let stockPrice = (" $" + stockInfoPrice.price);
+
+//                 let stockInfoPriceString = (stockSymbol + stockPrice + "--- ");
+//                 let listOfStocks = document.querySelector("#bar-stocks-list2");
+//                 let stockBarLinesResults = document.createElement('p');
+//                 stockBarLinesResults.innerHTML = stockInfoPriceString;
+//                 listOfStocks.appendChild(stockBarLinesResults);
+//             });
+//         })
+
+// }
+
+// barData();
+
+// const appendToContainer = (dataToShow) => {
+//     const barStockBg = document.createElement('div');
+//     barStockBg.classList.add("bar-stocks-bg");
+//     const barStocksList2 = document.createElement('div');
+//     barStocksList2.classList.add("bar-stocks-list2");
+//     barStockBg.appendChild(barStocksList2);
+//     const stockBarLinesResults = document.createElement('p');
+//     stockBarLinesResults.appendChild(dataToShow)
+// }
+
+// const barStockBg = () => {
+
+// }
+
+
+
 
 // const barData =  () => {
 //     console.log('bar');
