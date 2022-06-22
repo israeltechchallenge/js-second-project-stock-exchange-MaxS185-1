@@ -68,11 +68,12 @@ async function stocksList() {
                     // stockLinesResultsChangePer.classList.add("green-color")
 
                     let stockLinesResults = document.createElement('p');
-                    stockLinesResults.innerHTML = stockCompanyData;
+                    // let compareBtn = document.createElement('button');
+                    stockLinesResults.innerHTML = stockCompanyData // compareBtn;
                     listOfStocks.appendChild(stockLinesResults);
 
                     //highlight searching value
-                    highlightBackground(searchingBoxValue.value);
+                    highlightBackground4(listOfStocks, searchingBoxValue.value);
                     loaderRemove();
 
                 }
@@ -81,13 +82,14 @@ async function stocksList() {
 }
 
 
-function highlightBackground(searched) {
-    // searched.toLowerCase();
-    let text = document.querySelector('.result-stock').innerHTML;
-    let re = new RegExp(searched, "g");
-    let newText = text.replace(re, `<mark>${searched}</mark>`);
-    document.getElementById("list-of-stocks").innerHTML = newText;
-}
+// function highlightBackground(searched) {
+//     // searched.toLowerCase();
+//     let text = document.querySelector('.result-stock').innerHTML;
+//     let re = new RegExp(searched, "g");
+//     let newText = text.replace(re, `<mark>${searched}</mark>`);
+//     console.log(newText);
+//     document.getElementById("list-of-stocks").innerHTML = newText;
+// }
 
 // function highlightBackground2(textToHighlight) {
 //     let textToSearch = textToHighlight;
@@ -97,11 +99,28 @@ function highlightBackground(searched) {
 //     line.innerHTML = line.textContent.replace(pattern, match => `<mark>${match}</mark`)
 // }
 
-function highlightBackground3(textToHighlight) {
-    const textToSearch = textToHighlight;
-    let line = document.querySelector('.result-stock');
-    line.replace(new RegExp(textToSearch, "gi"), (match) => `<mark>${match}</mark>`)
-}
+// function highlightBackground3(textToHighlight) {
+//     const $box = document.getElementById('box');
+//     const $search = document.getElementById('search');
+//     const textToSearch = textToHighlight;
+//     let line = document.querySelector('.result-stock');
+//     line.replace(new RegExp(textToSearch, "gi"), (match) => `<mark>${match}</mark>`)
+// }
+
+function highlightBackground4(box, search) {
+    const $box = box;
+    const $search = search;
+
+    const searchText = search;
+    const regex = new RegExp(searchText, 'gi');
+
+    let text = $box.innerHTML;
+    text = text.replace(/(<mark class="highlight">|<\/mark>)/gim, '');
+
+    const newText = text.replace(regex, '<mark class="highlight">$&</mark>');
+    $box.innerHTML = newText;
+};
+;
 
 const dataOfStocks = async (symbol) => {
     let url = 'https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/' + symbol;

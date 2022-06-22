@@ -14,7 +14,7 @@ function barData() {
             return resp.json();
         })
         .then(stockBarData => {
-            console.log(stockBarData);
+            // console.log(stockBarData);
             stockBarData.forEach(stockBarDataAll => {
                 const stockInfoPrice = new StockBarData(stockBarDataAll.symbol, stockBarDataAll.price);
                 let stockSymbol = stockInfoPrice.symbol;

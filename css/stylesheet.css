@@ -1,6 +1,9 @@
 body {
     width: 1340px;
-    background-image: linear-gradient(to Ttop, rgb(117, 132, 132), white);
+    /* background-image: linear-gradient(to Ttop, rgb(117, 132, 132), white); */
+
+    background-image: url(/icon/1.jpg), ;
+
 }
 
 html,
