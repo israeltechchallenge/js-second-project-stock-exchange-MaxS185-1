@@ -195,10 +195,17 @@ body {
 .padding-10 {
     padding: 10px;
 }
+
 .padding-left-5 {
     padding-left: 5px;
 }
 
-.img {
+/* .img {
     color: rgb(255, 255, 255)
+} */
+
+.img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
 }

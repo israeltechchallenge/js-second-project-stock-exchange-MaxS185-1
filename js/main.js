@@ -21,7 +21,7 @@ let stockCompanyData = [];
 //companies data fetching and rendering
 async function stocksList() {
     console.log(searchingBoxValue.value);
-    const url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${searchingBoxValue.value}&limit=10&exchange=NASDAQ`;
+    const url = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${searchingBoxValue.value}&limit=50&exchange=NASDAQ`;
     console.log(url);
 
     loaderDisplay();
@@ -38,46 +38,116 @@ async function stocksList() {
                 for (const stock of stocks) {
                     // stockCompanyData = (`${stock.name} (${stock.symbol})`);
                     console.log(stock);
-                    let stockCompanyName = (`${stock.name}`)
-                    let stockCompanySymbol = (`${stock.symbol}`);
+                    // let stockCompanyName = (`${stock.name}`);
+
                     let symbolLink = await dataOfStocks(stock.symbol);
                     console.log(symbolLink.profile);
-                    let stockCompanyImgLink = symbolLink.profile.image;
-                    let stockCompanyImg = new Image();
-                    stockCompanyImg.src = stockCompanyImgLink;
-                    let stockCompanyPercChanges = symbolLink.profile.changesPercentage;
-
-
                     let stockHistory = await historyOfStock(stock.symbol);
-                    console.log(stockHistory);
 
-                    let stockCompanyData = (stockCompanyImg + stockCompanyName + ' ' + '(' + stockCompanySymbol + ')' + '(' + stockCompanyPercChanges + '%)')
-                    console.log(stockCompanyData);
+                    console.log(symbolLink.profile.image);
+
+                    let stockCompanyImg = document.createElement('img');
+                    stockCompanyImg.src = symbolLink.profile.image;
+                    stockCompanyImg.classList.add('img')
+                    stockCompanyImg.alt = "logo"
+
+                    let stockCompanyName = document.createElement('div');
+                    stockCompanyName.innerText = stock.name;
+                    stockCompanyName.classList.add('blue-color')
+                    stockCompanyName.classList.add('padding-10')
+
+                    let stockCompanySymbol = document.createElement('div');
+                    stockCompanySymbol.innerText = ('(' + stock.symbol + ')');
+                    stockCompanySymbol.classList.add('gray-color'); stockCompanySymbol.classList.add('padding-10');
+
+                    let stockCompanyPercChanges = document.createElement('div');
+                    stockCompanyPercChanges.innerText = ('$' + symbolLink.profile.changesPercentage);
+                    // stockCompanyPercChanges.classList.add('green-color');
+                    stockCompanyPercChanges.classList.add('padding-10');
+                    console.log(stockCompanyPercChanges);
+
+                    if (symbolLink.profile.changesPercentage > 0) {
+                        stockCompanyPercChanges.classList.add('green-color');
+                    } else {
+                        stockCompanyPercChanges.classList.add('red-color');
+                    }
+
+                    let div = document.createElement('div');
+                    div.classList.add("flex-row")
+                    div.append(stockCompanyImg);
+                    div.append(stockCompanyName);
+                    div.append(stockCompanySymbol);
+                    div.append(stockCompanyPercChanges);
                     let listOfStocks = document.querySelector("#list-of-stocks");
+                    // div.classList.add('result-stock')
+                    listOfStocks.appendChild(div)
 
-                    // let div = document.createElement('div');
-                    // div.classList.add("flex-row")
-                    // let stockLinesResultsImg = document.createElement('p');
-                    // stockLinesResultsImg.classList.add("img")
-                    // let stockLinesResultsName = document.createElement('p');
-                    // stockLinesResultsName.classList.add("blue-color")
-                    // let stockLinesResultsSymbol = document.createElement('p');
-                    // stockLinesResultsSymbol.classList.add("gray-color")
-                    // let stockLinesResultsChangePer = document.createElement('p');
-                    // stockLinesResultsChangePer.classList.add("green-color")
 
-                    let stockLinesResults = document.createElement('p');
-                    // let compareBtn = document.createElement('button');
-                    stockLinesResults.classList.add('flex-row"')
-                    stockLinesResults.innerHTML = stockCompanyData // compareBtn;
-                    listOfStocks.appendChild(stockLinesResults);
+
+
+                    // // let stockCompanySymbol = (`${stock.symbol}`);
+                    // // let symbolLink = await dataOfStocks(stock.symbol);
+                    // // console.log(symbolLink.profile);
+                    // let stockCompanyImgLink = symbolLink.profile.image;
+                    // // let stockCompanyImg = new Image();
+                    // stockCompanyImg.src = stockCompanyImgLink;
+                    // // let stockCompanyPercChanges = symbolLink.profile.changesPercentage;
+
+
+                    // // let stockHistory = await historyOfStock(stock.symbol);
+                    // // console.log(stockHistory);
+
+                    // let stockCompanyData = (stockCompanyImg + stockCompanyName + ' ' + '(' + stockCompanySymbol + ')' + '(' + stockCompanyPercChanges + '%)')
+                    // // console.log(stockCompanyData);
+                    // // let listOfStocks = document.querySelector("#list-of-stocks");
+                    // let stockLinesResults = document.createElement('p');
+
+                    // // let compareBtn = document.createElement('button');
+                    // stockLinesResults.classList.add('flex-row"')
+                    // stockLinesResults.innerHTML = stockCompanyData // compareBtn;
 
                     //highlight searching value
-                    highlightBackground(listOfStocks, searchingBoxValue.value);
+                    highlightBackground(stockCompanyName, searchingBoxValue.value);
+                    highlightBackground(stockCompanySymbol, searchingBoxValue.value);
+
                     loaderRemove();
 
                 }
             }
+
+            // async (stocks) => {
+            //     for (const stock of stocks) {
+            //         // stockCompanyData = (`${stock.name} (${stock.symbol})`);
+            //         console.log(stock);
+            //         let stockCompanyName = (`${stock.name}`)
+            //         let stockCompanySymbol = (`${stock.symbol}`);
+            //         let symbolLink = await dataOfStocks(stock.symbol);
+            //         console.log(symbolLink.profile);
+            //         let stockCompanyImgLink = symbolLink.profile.image;
+            //         let stockCompanyImg = new Image();
+            //         stockCompanyImg.src = stockCompanyImgLink;
+            //         let stockCompanyPercChanges = symbolLink.profile.changesPercentage;
+
+
+            //         let stockHistory = await historyOfStock(stock.symbol);
+            //         console.log(stockHistory);
+
+            //         let stockCompanyData = (stockCompanyImg + stockCompanyName + ' ' + '(' + stockCompanySymbol + ')' + '(' + stockCompanyPercChanges + '%)')
+            //         console.log(stockCompanyData);
+            //         let listOfStocks = document.querySelector("#list-of-stocks");
+            //         let stockLinesResults = document.createElement('p');
+
+            //         // let compareBtn = document.createElement('button');
+            //         stockLinesResults.classList.add('flex-row"')
+            //         stockLinesResults.innerHTML = stockCompanyData // compareBtn;
+            //         listOfStocks.appendChild(stockLinesResults);
+
+            //         //highlight searching value
+            //         highlightBackground(listOfStocks, searchingBoxValue.value);
+            //         loaderRemove();
+
+            //     }
+            // }
         )
 }
 
