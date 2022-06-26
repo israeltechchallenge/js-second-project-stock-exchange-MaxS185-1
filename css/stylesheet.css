@@ -181,15 +181,22 @@ body {
 }
 
 .green-color {
-    color: rgb(144, 223, 16)
+    color: rgb(144, 223, 16);
 }
 
 .red-color {
-    color: rgb(223, 16, 16)
+    color: rgb(223, 16, 16);
 }
 
 .gray-color {
-    color: rgb(160, 151, 151)
+    color: rgb(160, 151, 151);
+}
+
+.padding-10 {
+    padding: 10px;
+}
+.padding-left-5 {
+    padding-left: 5px;
 }
 
 .img {

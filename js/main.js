@@ -40,7 +40,6 @@ async function stocksList() {
                     console.log(stock);
                     let stockCompanyName = (`${stock.name}`)
                     let stockCompanySymbol = (`${stock.symbol}`);
-
                     let symbolLink = await dataOfStocks(stock.symbol);
                     console.log(symbolLink.profile);
                     let stockCompanyImgLink = symbolLink.profile.image;
@@ -69,11 +68,12 @@ async function stocksList() {
 
                     let stockLinesResults = document.createElement('p');
                     // let compareBtn = document.createElement('button');
+                    stockLinesResults.classList.add('flex-row"')
                     stockLinesResults.innerHTML = stockCompanyData // compareBtn;
                     listOfStocks.appendChild(stockLinesResults);
 
                     //highlight searching value
-                    highlightBackground4(listOfStocks, searchingBoxValue.value);
+                    highlightBackground(listOfStocks, searchingBoxValue.value);
                     loaderRemove();
 
                 }
@@ -82,7 +82,7 @@ async function stocksList() {
 }
 
 
-// function highlightBackground(searched) {
+// function highlightBackground1(searched) {
 //     // searched.toLowerCase();
 //     let text = document.querySelector('.result-stock').innerHTML;
 //     let re = new RegExp(searched, "g");
@@ -107,7 +107,7 @@ async function stocksList() {
 //     line.replace(new RegExp(textToSearch, "gi"), (match) => `<mark>${match}</mark>`)
 // }
 
-function highlightBackground4(box, search) {
+function highlightBackground(box, search) {
     const $box = box;
     const $search = search;
 
